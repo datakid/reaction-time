@@ -18,6 +18,15 @@ A quiet practice tool for reaction time and input timing. It has no cheering, no
 ## Exercises
 Cue, Key (dynamic 2/4/8 or fixed key), Choice (2–4 areas), Go/no-go and Buffer (chain 1–3). Each one starts with a demonstration. The response window adapts quietly in the background. Users can turn on sound cues, reduced motion, practice only, hold difficulty and haptics.
 
+## Input integrity (v3.1)
+- **False start restarts the trial.** A press in the waiting period (or before the Buffer arc starts) cancels the pending cue. The field turns tinted, says "Too soon. Wait for the change." and the cue cannot appear until the user has stopped pressing for a short quiet period (0.7 s, growing by 0.4 s with each false start in a row, up to 2.7 s). Each press during that period starts the timer again, so holding a key down or tapping fast keeps the cue away.
+- **Anticipations repeat the trial.** A response under 100 ms after the cue counts as an anticipation and triggers the same restart. It never counts as a completed trial.
+- **No gap between trials.** The waiting state starts 250 ms after a response, so presses between trials count as false starts too.
+- **Buffer:** pressing more than once in the same lock counts as "Several presses" and restarts it.
+- **Spoiled blocks are not saved.** If false starts, anticipations and wrong responses together go above 40% of the block (at least 8), or the user keeps pressing during the quiet periods, the block stops with "This block was not recorded." Nothing goes to history and difficulty does not adapt.
+- **Continue and Back are disabled for 0.9 s** after a block ends, so presses that are still coming in can't skip the summary.
+- After 3 false starts in a row the message changes to "Hands off. It restarts when you stop pressing."
+
 ## Analytics
 - **After each block:** median, middle half, spread, fastest and slowest 10%, valid trials, anticipations, early presses, no response, wrong or outline presses, first vs second half, histogram with the reference band, reference ruler, and the difference from the previous 5 sessions with the same setting.
 - **Buffer:** median offset, share in window, early and late counts, mean distance.
