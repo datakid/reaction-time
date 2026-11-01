@@ -26,6 +26,3 @@ Cue, Key (dynamic 2/4/8 or fixed key), Choice (2–4 areas), Go/no-go and Buffer
 ## Storage
 - `localStorage` key `lull1`, structured as `{v,p,h,s,dev}`. Data from older versions is cleaned and kept. If stored data can't be read, it is copied to `lull1_bak_<time>` and not discarded. A backup is also written before Load and Erase.
 - Data export: Copy, Save file, Open file, Load and Copy CSV.
-
-## Not done yet
-- Not deployed yet. Publishing needs approval for Hosted Deploy.
