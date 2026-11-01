@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lull</title>
+<meta name="description" content="A quiet practice tool for reaction time and input timing.">
+<meta name="theme-color" content="#151813" id="tc">
+<meta name="color-scheme" content="dark light">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lull">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml" id="fi">
+<link rel="apple-touch-icon" href="images/icon-original.jpg" id="ati">
+<script>try{var j=JSON.parse(localStorage.getItem("lull1")),s=j&&j.s||{},th=s.th=="light"||s.th=="dark"?s.th:(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.dataset.theme=th;if(s.th=="light"||s.th=="dark")document.getElementById("fi").href="icon-"+s.th+".svg";if(s.lg=="ar"){document.documentElement.lang="ar";document.documentElement.dir="rtl"}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500&family=Noto+Sans+Arabic:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="m" viewBox="0 0 64 64"><g fill="none" stroke-width="7" stroke-linecap="round" transform="rotate(-90 32 32)"><circle cx="32" cy="32" r="22.4" stroke-dasharray="104.15 36.6" style="stroke:var(--t)"/><circle cx="32" cy="32" r="22.4" stroke-dasharray="17 123.8" stroke-dashoffset="-87.15" style="stroke:var(--p)"/></g><circle cx="23" cy="23.7" r="5.1" style="fill:var(--c)"/></symbol></svg>
+<main id="app"></main>
+<noscript><p style="padding:24px">Lull needs JavaScript.</p></noscript>
+<script src="js/app.js"></script>
+</body>
+</html>

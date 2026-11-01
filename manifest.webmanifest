@@ -1,0 +1,15 @@
+{
+  "name": "Lull",
+  "short_name": "Lull",
+  "description": "A quiet practice tool for reaction time and input timing.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#151813",
+  "theme_color": "#151813",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
