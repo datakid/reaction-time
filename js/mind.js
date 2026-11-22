@@ -19,15 +19,8 @@ const T=[
 {id:'pc',n:'Percentages',r:'Find ten percent by moving the decimal, then build the percentage from it.',e:'35% of 80 → 8 × 3 = 24, + 4 = 28',g:()=>{const b=rnd(2,15)*20,p=pick([15,20,30,35,40,45,60,65]),h=p%10==5;return[`${p}% of ${b}`,b*p/100,h?`${b/10} × ${(p-5)/10} = ${b/10*(p-5)/10}, + ${b/20} = ${b*p/100}`:`${b/10} × ${p/10} = ${b*p/100}`]}}
 ];
 const MT=[['Chunk','Group digits in threes or fours. Hold three or four chunks, not a long string.'],['Link','Turn each item into a clear image and chain the images into one short scene.'],['Place','Fix each item to a stop on a familiar route. Recall by walking the route in order.'],['Trace','In Sequence, remember the path from 1 to the last number as a single line.']];
-const LV=[
-()=>{const a=rnd(12,58),b=rnd(11,39);return rnd(0,1)?[`${a} + ${b}`,a+b]:[`${a+b} − ${b}`,a]},
-()=>{const k=rnd(0,2),a=rnd(12,49),b=rnd(3,9),x=rnd(120,890),y=rnd(21,79);return k==0?[`${a} × ${b}`,a*b]:k==1?[`${x} + ${y}`,x+y]:[`${x} − ${y}`,x-y]},
-()=>{const k=rnd(0,2),a=rnd(12,25),b=rnd(11,19),c=rnd(13,35),d=rnd(3,9);return k==0?[`${a} × ${b}`,a*b]:k==1?[`${c}²`,c*c]:[`${a*d} ÷ ${d}`,a]},
-()=>{const k=rnd(0,2),a=rnd(23,49),b=rnd(12,39),x=rnd(112,489),c=rnd(3,9),s=rnd(36,99);return k==0?[`${a} × ${b}`,a*b]:k==1?[`${x} × ${c}`,x*c]:[`${s}²`,s*s]}
-];
-let D={},LA=null,Lv=1,Dr='f';
+let D={},LA=null;
 const lastRec=k=>{const m=S.mn||[];for(let i=m.length-1;i>=0;i--)if(m[i].k==k)return m[i]};
-Lv=(lastRec('a')||{}).l||1;
 const rec=r=>{if(S.s.prac)return;S.mn=(S.mn||[]).concat([{t:Date.now(),...r}]).slice(-400);save(1)};
 const s1=v=>LT((v/1000).toFixed(1)+' s');
 const scr=(t,b,bk)=>{stop();A.innerHTML=`<div class="wrap">${topbar(t)}${b}</div>`;if(bk)$('.top>button').dataset.a=bk};
@@ -39,24 +32,11 @@ const drill=(title,gen,n,meta)=>{LA=[title,gen,n,meta];D={mode:'a',ph:'in',title
 const fin=()=>{const NN=D.meta.sp?D.r.length:D.n,m=D.r.map(x=>x.ms),c=D.r.filter(x=>x.ok).length;NN&&rec({k:D.meta.k,l:D.meta.l||0,n:NN,c,md:R(md(m)),x:D.meta.x||''});D.sub=null;scr(D.title,`<div class="card"><div class="grid">${tile('Correct',fr(c,NN))}${tile('Median time',s1(md(m)))}${tile('Fastest',s1(m.length?Math.min(...m):0))}${tile('Slowest',s1(m.length?Math.max(...m):0))}</div>${D.r.some(x=>!x.ok)?`<p class="sec">${tr('Missed')}</p><ul class="fl">${D.r.filter(x=>!x.ok).map(x=>`<li><b>${LT(x.q+' = '+x.a)}</b>${x.w?`<span>${LT(x.w)}</span>`:''}</li>`).join('')}</ul>`:''}<div class="bt"><button class="pb" data-a="mrep">${tr('Again')}</button><button class="gb" data-a="${D.meta.k=='g'?'mg':'back'}">${tr('Done')}</button></div></div>`,D.meta.k=='g'?'mg':0)};
 const finQ=k=>{rec({k,l:D.best,n:D.rounds,c:D.wins,md:R(D.tt&&D.tt.length?md(D.tt):0),x:D.dir||''});D.sub=null;scr(NM[k],`<div class="card"><div class="grid">${tile('Longest',D.best)}${tile('Rounds',D.rounds)}${tile('Passed',D.wins)}</div><div class="bt"><button class="pb" data-a="ms" data-k="${k}">${tr('Again')}</button><button class="gb" data-a="back">${tr('Done')}</button></div></div>`)};
 const head=()=>`<p class="pr">${tf('Length {a}',{a:D.n})} · ${tf('Strikes {a} / {b}',{a:D.st,b:D.sx||3})}</p>`;
-const seqStart=()=>{D={mode:'q',n:4,st:0,rounds:0,best:0,wins:0,lock:0};seqRound()};
-const seqRound=()=>{const m={};sh([...Array(25).keys()]).slice(0,D.n).forEach((p,i)=>m[p]=i+1);Object.assign(D,{m,nx:1,lock:0});scr('Sequence',`${head()}<div class="mg" id="mg">${[...Array(25).keys()].map(i=>m[i]?`<button class="mc" data-a="mq" data-i="${i}">${m[i]}</button>`:'<i></i>').join('')}</div><p class="wk" id="fb"></p>`)};
-const seqEnd=ok=>{D.lock=1;D.rounds++;const g=$('#mg');g.classList.remove('hid');if(ok){D.wins++;D.best=Math.max(D.best,D.n);D.n=Math.min(D.n+1,25);$('#fb').textContent=tf('Next length {a}',{a:D.n})}else{D.st++;$('#fb').textContent=tr('Wrong order.')}const my=D;setTimeout(()=>{if(D!==my||!$('#mg'))return;D.st>=3?finQ('q'):seqRound()},ok?700:1500)};
-const digStart=dir=>{D={mode:'d',dir,n:4,st:0,rounds:0,best:0,wins:0};digRound()};
-const digRound=()=>{const s=Array.from({length:D.n},()=>rnd(0,9)).join('');Object.assign(D,{s,buf:'',ph:'show',sub:digSub});scr('Digits',`${head()}<div class="pq dg" id="ds">${s}</div><div class="pa" id="as" hidden></div><p class="wk" id="fb"></p><div class="np-w" id="pd" hidden>${pad()}</div>`);const my=D;setTimeout(()=>{if(D!==my||!$('#ds'))return;$('#ds').textContent='';$('#as').hidden=false;$('#pd').hidden=false;D.ph='in'},800+D.n*500)};
-const digSub=()=>{if(D.ph=='fb')return D.st>=3?finQ('d'):digRound();if(D.ph!='in'||!D.buf)return;const w=D.dir=='f'?D.s:[...D.s].reverse().join(''),ok=D.buf==w;D.rounds++;D.ph='fb';if(ok){D.wins++;D.best=Math.max(D.best,D.n);D.n=Math.min(D.n+1,16)}else D.st++;$('#fb').innerHTML=ok?tr('Correct'):tf('Answer {a}',{a:w});$('#as').classList.add(ok?'ok':'no')};
-const rt=r=>r.k=='a'?`${fr(r.c,r.n)} · ${tf('Level {a}',{a:r.l})}`:tf('Best {a}',{a:r.l});
-const setup=k=>{const rows=(S.mn||[]).filter(r=>r.k==k).slice(-6).reverse(),c=k=='a'?tabs('mlv',Lv,[1,2,3,4].map(n=>[n,n]),'Level'):k=='d'?tabs('mdr',Dr,[['f','Forward'],['b','Backward']],'Order'):'';scr(NM[k],`<p class="lead">${tr(ID[k])}</p><div class="opts">${c}</div><div class="bt"><button class="pb" data-a="ms" data-k="${k}">${tr('Start')}</button></div>${rows.length&&!S.s.prac?`<p class="sec">${tr('Recent')}</p><div class="card"><ul class="sl">${rows.map(r=>`<li><span>${dd(r.t)}</span><b>${rt(r)}</b><span>${r.k=='a'?s1(r.md):''}</span></li>`).join('')}</ul></div>`:''}`)};
-const guide=()=>scr('Technique guide',`<p class="mt">${tr('One technique per card. Learn it, then practice it.')}</p>${T.map(t=>`<button class="item" data-a="mt" data-k="${t.id}"><span class="tx"><b>${tr(t.n)}</b><span>${tr(t.r)}</span></span>${CH}</button>`).join('')}<p class="sec">${tr('Memory')}</p><div class="card"><ul class="fl">${MT.map(([a,b])=>`<li><b>${tr(a)}</b><span>${tr(b)}</span></li>`).join('')}</ul></div>`);
 const tech=id=>{const t=T.find(x=>x.id==id);scr(t.n,`<p class="lead">${tr(t.r)}</p><div class="ex">${LT(t.e)}</div><div class="bt"><button class="pb" data-a="mpr" data-k="${id}">${tr('Practice')}</button></div>`,'mg')};
 const home=()=>`<p class="sec">${tr('Mind')}</p>${['a','f','g','q','d','c','t'].map(k=>{const l=lastRec(k);return`<button class="item" data-a="mn" data-k="${k}"><i class="gl">${GM[k]}</i><span class="tx"><b>${tr(NM[k])}</b><span>${tr(ND[k])}</span></span>${l&&!S.s.prac&&k!='g'?`<span class="lv">${k=='a'||k=='f'||k=='t'?fr(l.c,l.n):tf('Best {a}',{a:l.l})}</span>`:''}${CH}</button>`}).join('')}<button class="item" data-a="mh"><i class="gl">${GM.h}</i><span class="tx"><b>${tr('Mind history')}</b><span>${tr('Trends, bests and technique progress.')}</span></span>${CH}</button>`;
 const HM={
-mn:b=>b.dataset.k=='g'?guide():setup(b.dataset.k),mg:guide,mt:b=>tech(b.dataset.k),
-mlv:b=>{Lv=+b.dataset.k;setup('a')},mdr:b=>{Dr=b.dataset.k;setup('d')},
-ms:b=>{const k=b.dataset.k;if(k=='a')drill(NM.a,LV[Lv-1],10,{k:'a',l:Lv});else if(k=='q')seqStart();else digStart(Dr)},
-mpr:b=>{const t=T.find(x=>x.id==b.dataset.k);drill(t.n,t.g,5,{k:'g',x:t.id})},
-mrep:()=>LA&&drill(...LA),mp:b=>press(b.dataset.k),
-mq:b=>{if(D.mode!='q'||D.lock)return;const v=D.m[+b.dataset.i];if(v!=D.nx)return seqEnd(0);if(v==1)$('#mg').classList.add('hid');b.classList.add('gone');b.disabled=true;D.nx++;if(D.nx>D.n)seqEnd(1)}};
+mt:b=>tech(b.dataset.k),
+mrep:()=>LA&&(LA[3].rs?LA[3].rs():drill(...LA)),mp:b=>press(b.dataset.k)};
 Object.assign(H,HM);
 document.addEventListener('keydown',e=>{if(!$('#as')||e.ctrlKey||e.metaKey||e.altKey)return;if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key=='Backspace')press('⌫');else if(e.key=='Enter'){e.preventDefault();press('↵')}});
-return{home,T,LV,x:{NM,ND,ID,GM,MT,rnd,pick,sh,scr,pad,drill,rec,s1,finQ,fin,head,tech,lastRec,D:()=>D,sD:v=>{D=v;return v}}}})();
+return{home,T,x:{NM,ND,ID,GM,MT,rnd,pick,sh,scr,pad,drill,rec,s1,finQ,fin,head,tech,lastRec,D:()=>D,sD:v=>{D=v;return v}}}})();
