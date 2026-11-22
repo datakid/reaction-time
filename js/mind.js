@@ -36,7 +36,7 @@ const tech=id=>{const t=T.find(x=>x.id==id);scr(t.n,`<p class="lead">${tr(t.r)}<
 const home=()=>`<p class="sec">${tr('Mind')}</p>${['a','f','g','q','d','c','t'].map(k=>{const l=lastRec(k);return`<button class="item" data-a="mn" data-k="${k}"><i class="gl">${GM[k]}</i><span class="tx"><b>${tr(NM[k])}</b><span>${tr(ND[k])}</span></span>${l&&!S.s.prac&&k!='g'?`<span class="lv">${k=='a'||k=='f'||k=='t'?fr(l.c,l.n):tf('Best {a}',{a:l.l})}</span>`:''}${CH}</button>`}).join('')}<button class="item" data-a="mh"><i class="gl">${GM.h}</i><span class="tx"><b>${tr('Mind history')}</b><span>${tr('Trends, bests and technique progress.')}</span></span>${CH}</button>`;
 const HM={
 mt:b=>tech(b.dataset.k),
-mrep:()=>LA&&(LA[3].rs?LA[3].rs():drill(...LA)),mp:b=>press(b.dataset.k)};
+mrep:()=>LA&&(LA[3].rs?LA[3].rs():drill(...LA)),mp:b=>{press(b.dataset.k);if(M!='k')b.blur()}};
 Object.assign(H,HM);
 document.addEventListener('keydown',e=>{if(!$('#as')||e.ctrlKey||e.metaKey||e.altKey)return;if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key=='Backspace')press('⌫');else if(e.key=='Enter'){e.preventDefault();press('↵')}});
 return{home,T,x:{NM,ND,ID,GM,MT,rnd,pick,sh,scr,pad,drill,rec,s1,finQ,fin,head,tech,lastRec,D:()=>D,sD:v=>{D=v;return v}}}})();

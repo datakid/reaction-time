@@ -219,3 +219,5 @@ h1{font-weight:400;font-size:28px;letter-spacing:.16em}
 .ti:focus-visible{outline:2px solid var(--c);outline-offset:2px}
 .seg button{flex:none}
 .tabs>.seg:only-child,.tabs>div:only-child{width:100%}
+@keyframes in{from{opacity:.45}}
+.wrap{animation-duration:.2s}

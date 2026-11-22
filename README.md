@@ -9,10 +9,11 @@ A quiet practice tool for reaction time and input timing. It has no cheering, no
 ## Files
 - `index.html` contains the shell, the logo symbol and the theme pre-paint script.
 - `css/app.css` holds the styles, with dark and light themes defined as CSS variables.
+- `js/paint.js` makes screen updates in place: a re-render with the same screen identity only patches changed nodes, so nothing flickers, focus and scroll stay put, and the fade runs only when the screen actually changes.
 - `js/app.js` contains the exercises, adaptation, analytics and storage.
 - `js/mind.js` and `js/mind2.js` contain the Mind section: engine, math drills, technique guide, Sequence, Digits, Corsi, Text, Facts and Mind history.
 - `fonts/` holds Figtree as a local variable woff2 file.
-- `sw.js` is the offline cache (v3.5.1). Nothing is requested from another origin: no CDN, no web fonts, no analytics. `manifest.webmanifest` makes the app installable.
+- `sw.js` is the offline cache (v3.5.2). Nothing is requested from another origin: no CDN, no web fonts, no analytics. `manifest.webmanifest` makes the app installable.
 - `icon.svg` is the favicon. It follows `prefers-color-scheme` on its own.
 - `icon-dark.svg` and `icon-light.svg` are used when the theme is set by hand in the app.
 - `icon-maskable.svg` is the installed app icon. `images/icon-original.jpg` is the uploaded raster icon, used as the apple-touch-icon.
